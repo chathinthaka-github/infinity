@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Infinity Coaching Institute</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Auth Container -->
+<div class="auth-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="auth-form">
+                    <!-- Logo -->
+                    <div class="text-center mb-4">
+                        <img src="../assets/images/logos/infinity-logo.png" alt="Infinity Coaching" height="50" class="mb-3">
+                        <h2 class="fw-bold text-primary">Welcome Back</h2>
+                        <p class="text-muted">Sign in to your account to continue learning</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm" class="ajax-form">
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                                <label for="email"><i class="fas fa-envelope me-2"></i>Email Address</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-floating">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                <label for="password"><i class="fas fa-lock me-2"></i>Password</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                                <label class="form-check-label text-muted" for="remember">
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="forgot-password.html" class="text-decoration-none">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                        </button>
+
+                        <div class="text-center">
+                            <span class="text-muted">Don't have an account? </span>
+                            <a href="register.html" class="text-decoration-none fw-semibold">Create Account</a>
+                        </div>
+                    </form>
+
+                    <!-- Demo Accounts -->
+                    <div class="mt-4 pt-4 border-top">
+                        <h6 class="text-muted text-center mb-3">Demo Accounts</h6>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-outline-primary btn-sm w-100" data-demo="admin">
+                                    <i class="fas fa-user-shield me-1"></i>Admin Demo
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-outline-success btn-sm w-100" data-demo="student">
+                                    <i class="fas fa-user-graduate me-1"></i>Student Demo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back to Home -->
+                <div class="text-center mt-4">
+                    <a href="../index.html" class="text-white text-decoration-none">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- Custom JS -->
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Redirect if already logged in
+        if (Auth.isAuthenticated()) {
+            const user = Auth.getUser();
+            const redirectUrl = user.role === 'admin' ? '../admin/dashboard.html' : '../student/dashboard.html';
+            window.location.href = redirectUrl;
+            return;
+        }
+
+        // Handle login form submission
+        $('#loginForm').on('submit', async function(e) {
+            e.preventDefault();
+
+            const email = $('#email').val().trim();
+            const password = $('#password').val();
+            const submitBtn = $(this).find('button[type="submit"]');
+
+            // Validate form
+            if (!email || !password) {
+                Utils.showAlert('Please fill in all required fields', 'error');
+                return;
+            }
+
+            if (!Utils.validateEmail(email)) {
+                Utils.showAlert('Please enter a valid email address', 'error');
+                return;
+            }
+
+            try {
+                Utils.showLoading(submitBtn[0], 'Signing In...');
+
+                const response = await Auth.login(email, password);
+
+                if (response.success) {
+                    Utils.showAlert('Login successful! Redirecting...', 'success');
+
+                    // Redirect based on user role
+                    const user = Auth.getUser();
+                    const redirectUrl = user.role === 'admin' ? '../admin/dashboard.html' : '../student/dashboard.html';
+
+                    setTimeout(() => {
+                        window.location.href = redirectUrl;
+                    }, 1500);
+                } else {
+                    throw new Error(response.error || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                Utils.showAlert(error.message || 'Login failed. Please try again.', 'error');
+            } finally {
+                Utils.hideLoading(submitBtn[0], '<i class="fas fa-sign-in-alt me-2"></i>Sign In');
+            }
+        });
+
+        // Handle demo account buttons
+        $('[data-demo]').on('click', function() {
+            const accountType = $(this).data('demo');
+
+            if (accountType === 'admin') {
+                $('#email').val('admin@infinitycoaching.institute');
+                $('#password').val('admin123');
+            } else {
+                // Create a demo student account or use existing one
+                $('#email').val('demo@student.com');
+                $('#password').val('password123');
+                Utils.showAlert('Demo student account. Use Register to create a real account.', 'info');
+            }
+        });
+
+        // Handle Enter key
+        $('#password').on('keypress', function(e) {
+            if (e.which === 13) {
+                $('#loginForm').submit();
+            }
+        });
+
+        // Focus on email field
+        $('#email').focus();
+    });
+</script>
+</body>
+</html>

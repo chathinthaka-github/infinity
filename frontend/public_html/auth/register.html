@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Infinity Coaching Institute</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Auth Container -->
+<div class="auth-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <div class="auth-form">
+                    <!-- Logo -->
+                    <div class="text-center mb-4">
+                        <img src="../assets/images/logos/infinity-logo.png" alt="Infinity Coaching" height="40" class="mb-3">
+                        <h2 class="fw-bold text-primary">Join Infinity Coaching</h2>
+                        <p class="text-muted">Create your account to start your PTE journey</p>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <form id="registerForm" class="ajax-form">
+                        <!-- Personal Information -->
+                        <div class="form-section mb-4">
+                            <h6 class="fw-semibold mb-3 text-primary">
+                                <i class="fas fa-user me-2"></i>Personal Information
+                            </h6>
+
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                                        <label for="name">Full Name *</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                                        <label for="email">Email Address *</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="tel" class="form-control" id="whatsapp_number" name="whatsapp_number" placeholder="WhatsApp Number" required>
+                                        <label for="whatsapp_number">WhatsApp Number *</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                        <label for="password">Password (min 8 characters) *</label>
+                                    </div>
+                                    <div class="form-text">
+                                        <small class="text-muted">Password must be at least 8 characters long</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                                        <label for="confirm_password">Confirm Password *</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PTE Information -->
+                        <div class="form-section mb-4">
+                            <h6 class="fw-semibold mb-3 text-primary">
+                                <i class="fas fa-graduation-cap me-2"></i>PTE Information
+                            </h6>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="current_location" name="current_location" placeholder="Current Location" required>
+                                        <label for="current_location">Current Location *</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <select class="form-select" id="target_score" name="target_score" required>
+                                            <option value="">Select Target Score</option>
+                                            <option value="50+">50+</option>
+                                            <option value="58+">58+</option>
+                                            <option value="65+">65+</option>
+                                            <option value="72+">72+</option>
+                                            <option value="79+">79+</option>
+                                            <option value="85+">85+</option>
+                                        </select>
+                                        <label for="target_score">Target PTE Score *</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <select class="form-select" id="reason_for_pte" name="reason_for_pte" required>
+                                            <option value="">Select Reason</option>
+                                            <option value="Masters/PhD">Masters/PhD</option>
+                                            <option value="Bachelors">Bachelors</option>
+                                            <option value="Skill Migration">Skill Migration</option>
+                                            <option value="Work Visa">Work Visa</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <label for="reason_for_pte">Reason for taking PTE *</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- How did you hear about us -->
+                        <div class="form-section mb-4">
+                            <h6 class="fw-semibold mb-3 text-primary">
+                                <i class="fas fa-share-alt me-2"></i>How did you hear about us?
+                            </h6>
+
+                            <div class="form-floating">
+                                <select class="form-select" id="heard_about_us" name="heard_about_us" required>
+                                    <option value="">Select Source</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="TikTok">TikTok</option>
+                                    <option value="Friend">Friend/Referral</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <label for="heard_about_us">How did you hear about us? *</label>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terms" name="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the <a href="#" target="_blank">Terms of Service</a> and
+                                    <a href="#" target="_blank">Privacy Policy</a> *
+                                </label>
+                            </div>
+
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="marketing" name="marketing">
+                                <label class="form-check-label" for="marketing">
+                                    I would like to receive marketing communications and updates
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                            <i class="fas fa-user-plus me-2"></i>Create Account
+                        </button>
+
+                        <div class="text-center">
+                            <span class="text-muted">Already have an account? </span>
+                            <a href="login.html" class="text-decoration-none fw-semibold">Sign In</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Back to Home -->
+                <div class="text-center mt-4">
+                    <a href="../index.html" class="text-white text-decoration-none">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- Custom JS -->
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Redirect if already logged in
+        if (Auth.isAuthenticated()) {
+            const user = Auth.getUser();
+            const redirectUrl = user.role === 'admin' ? '../admin/dashboard.html' : '../student/dashboard.html';
+            window.location.href = redirectUrl;
+            return;
+        }
+
+        // Handle registration form submission
+        $('#registerForm').on('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            const submitBtn = $(this).find('button[type="submit"]');
+
+            // Validate form
+            if (!validateForm(data)) {
+                return;
+            }
+
+            try {
+                Utils.showLoading(submitBtn[0], 'Creating Account...');
+
+                const response = await Auth.register(data);
+
+                if (response.success) {
+                    Utils.showAlert('Account created successfully! Redirecting to dashboard...', 'success');
+
+                    // Redirect to student dashboard
+                    setTimeout(() => {
+                        window.location.href = '../student/dashboard.html';
+                    }, 2000);
+                } else {
+                    throw new Error(response.error || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                let errorMessage = 'Registration failed. Please try again.';
+
+                if (error.message && error.message.includes('email already registered')) {
+                    errorMessage = 'This email is already registered. Please use a different email or try logging in.';
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+
+                Utils.showAlert(errorMessage, 'error');
+            } finally {
+                Utils.hideLoading(submitBtn[0], '<i class="fas fa-user-plus me-2"></i>Create Account');
+            }
+        });
+
+        // Real-time password confirmation validation
+        $('#confirm_password').on('input', function() {
+            const password = $('#password').val();
+            const confirmPassword = $(this).val();
+
+            if (confirmPassword && password !== confirmPassword) {
+                $(this).addClass('is-invalid');
+                if (!$(this).siblings('.invalid-feedback').length) {
+                    $(this).after('<div class="invalid-feedback">Passwords do not match</div>');
+                }
+            } else {
+                $(this).removeClass('is-invalid');
+                $(this).siblings('.invalid-feedback').remove();
+            }
+        });
+
+        // Email validation
+        $('#email').on('blur', function() {
+            const email = $(this).val();
+            if (email && !Utils.validateEmail(email)) {
+                $(this).addClass('is-invalid');
+                if (!$(this).siblings('.invalid-feedback').length) {
+                    $(this).after('<div class="invalid-feedback">Please enter a valid email address</div>');
+                }
+            } else {
+                $(this).removeClass('is-invalid');
+                $(this).siblings('.invalid-feedback').remove();
+            }
+        });
+
+        // Password strength indicator
+        $('#password').on('input', function() {
+            const password = $(this).val();
+            const strength = getPasswordStrength(password);
+
+            // Remove existing feedback
+            $(this).siblings('.password-strength').remove();
+
+            if (password.length > 0) {
+                const strengthHtml = `
+                        <div class="password-strength mt-1">
+                            <div class="progress" style="height: 4px;">
+                                <div class="progress-bar bg-${strength.color}" style="width: ${strength.percentage}%"></div>
+                            </div>
+                            <small class="text-${strength.color}">${strength.text}</small>
+                        </div>
+                    `;
+                $(this).after(strengthHtml);
+            }
+        });
+
+        // Focus on name field
+        $('#name').focus();
+    });
+
+    function validateForm(data) {
+        const errors = [];
+
+        // Required fields validation
+        const requiredFields = ['name', 'email', 'whatsapp_number', 'password', 'confirm_password',
+            'current_location', 'target_score', 'reason_for_pte', 'heard_about_us'];
+
+        requiredFields.forEach(field => {
+            if (!data[field] || data[field].trim() === '') {
+                errors.push(`${field.replace('_', ' ')} is required`);
+            }
+        });
+
+        // Email validation
+        if (data.email && !Utils.validateEmail(data.email)) {
+            errors.push('Please enter a valid email address');
+        }
+
+        // Password validation
+        if (data.password && !Utils.validatePassword(data.password)) {
+            errors.push('Password must be at least 8 characters long');
+        }
+
+        // Password confirmation
+        if (data.password !== data.confirm_password) {
+            errors.push('Passwords do not match');
+        }
+
+        // Terms acceptance
+        if (!data.terms) {
+            errors.push('Please accept the Terms of Service and Privacy Policy');
+        }
+
+        // WhatsApp number validation
+        if (data.whatsapp_number && !/^\+?[\d\s\-\(\)]{8,}$/.test(data.whatsapp_number)) {
+            errors.push('Please enter a valid WhatsApp number');
+        }
+
+        if (errors.length > 0) {
+            Utils.showAlert(errors[0], 'error');
+            return false;
+        }
+
+        return true;
+    }
+
+    function getPasswordStrength(password) {
+        let score = 0;
+
+        if (password.length >= 8) score += 25;
+        if (password.length >= 12) score += 25;
+        if (/[a-z]/.test(password)) score += 10;
+        if (/[A-Z]/.test(password)) score += 10;
+        if (/[0-9]/.test(password)) score += 15;
+        if (/[^A-Za-z0-9]/.test(password)) score += 15;
+
+        if (score < 30) {
+            return { percentage: score, color: 'danger', text: 'Weak' };
+        } else if (score < 60) {
+            return { percentage: score, color: 'warning', text: 'Fair' };
+        } else if (score < 90) {
+            return { percentage: score, color: 'info', text: 'Good' };
+        } else {
+            return { percentage: score, color: 'success', text: 'Strong' };
+        }
+    }
+</script>
+</body>
+</html>

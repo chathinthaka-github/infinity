@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Infinity Coaching Institute</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">
+            <img src="../assets/images/logos/infinity-logo-white.png" alt="Infinity" height="30" class="me-2">
+            Student Portal
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">
+                        <i class="fas fa-home me-1"></i>Home
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i><span id="user-name">Student</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user-edit me-2"></i>Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" data-action="logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container-fluid py-4">
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 bg-gradient-primary text-white">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2 class="fw-bold mb-2">Welcome back, <span id="welcome-name">Student</span>!</h2>
+                            <p class="mb-0 opacity-75">Continue your PTE preparation journey. You're doing great!</p>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            <div class="d-inline-flex align-items-center">
+                                <div class="me-3">
+                                    <small class="opacity-75">Target Score</small>
+                                    <div class="fw-bold fs-4" id="target-score">79+</div>
+                                </div>
+                                <div class="progress-circle" id="overall-progress">
+                                    <!-- Progress circle will be populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Overview -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="fw-bold mb-3">Your Progress Overview</h4>
+        </div>
+        <div id="progress-cards" class="row g-4">
+            <!-- Progress cards will be loaded dynamically -->
+        </div>
+    </div>
+
+    <!-- Learning Resources -->
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold mb-0">Learning Resources</h4>
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="categoryFilter" id="all" value="" checked>
+                    <label class="btn btn-outline-primary" for="all">All</label>
+
+                    <input type="radio" class="btn-check" name="categoryFilter" id="reading" value="reading">
+                    <label class="btn btn-outline-primary" for="reading">Reading</label>
+
+                    <input type="radio" class="btn-check" name="categoryFilter" id="listening" value="listening">
+                    <label class="btn btn-outline-primary" for="listening">Listening</label>
+
+                    <input type="radio" class="btn-check" name="categoryFilter" id="writing" value="writing">
+                    <label class="btn btn-outline-primary" for="writing">Writing</label>
+
+                    <input type="radio" class="btn-check" name="categoryFilter" id="speaking" value="speaking">
+                    <label class="btn btn-outline-primary" for="speaking">Speaking</label>
+
+                    <input type="radio" class="btn-check" name="categoryFilter" id="extra_resources" value="extra_resources">
+                    <label class="btn btn-outline-primary" for="extra_resources">Extra</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resources Grid -->
+    <div id="resources-container" class="row g-4">
+        <!-- Resources will be loaded dynamically -->
+    </div>
+
+    <!-- No Resources Message -->
+    <div id="no-resources" class="text-center py-5" style="display: none;">
+        <div class="mb-4">
+            <i class="fas fa-folder-open fa-4x text-muted"></i>
+        </div>
+        <h5 class="text-muted">No resources assigned yet</h5>
+        <p class="text-muted">Please contact your instructor to get started with your learning materials.</p>
+    </div>
+</div>
+
+<!-- Resource Modal -->
+<div class="modal fade" id="resourceModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resourceModalTitle">Resource Viewer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="resource-viewer" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3">Loading resource...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="download-btn" href="#" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download me-1"></i>Download
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- Custom JS -->
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/utils.js"></script>
+
+<script>
+    let allResources = {};
+    let currentFilter = '';
+
+    $(document).ready(function() {
+        // Check authentication
+        if (!Auth.redirectIfNotAuthenticated()) return;
+
+        // Initialize dashboard
+        initDashboard();
+
+        // Load user data and resources
+        loadUserProfile();
+        loadResources();
+
+        // Handle category filter changes
+        $('input[name="categoryFilter"]').on('change', function() {
+            currentFilter = $(this).val();
+            displayResources();
+        });
+    });
+
+    async function initDashboard() {
+        const user = Auth.getUser();
+        if (user) {
+            $('#user-name, #welcome-name').text(user.name);
+            $('#target-score').text(user.target_score || 'N/A');
+        }
+    }
+
+    async function loadUserProfile() {
+        try {
+            const response = await API.get('/student/profile');
+            if (response.success && response.data) {
+                const user = response.data;
+                $('#user-name, #welcome-name').text(user.name);
+                $('#target-score').text(user.target_score || 'N/A');
+
+                // Update stored user data
+                Auth.setUser(user);
+            }
+        } catch (error) {
+            console.error('Error loading profile:', error);
+        }
+    }
+
+    async function loadResources() {
+        try {
+            const response = await API.get('/student/resources');
+            if (response.success && response.data) {
+                allResources = response.data.resources_by_category;
+                displayProgressCards(response.data.progress_summary);
+                displayResources();
+            } else {
+                showNoResources();
+            }
+        } catch (error) {
+            console.error('Error loading resources:', error);
+            Utils.showAlert('Failed to load resources', 'error');
+            showNoResources();
+        }
+    }
+
+    function displayProgressCards(progressSummary) {
+        const container = $('#progress-cards');
+        container.empty();
+
+        if (!progressSummary || progressSummary.length === 0) {
+            container.append(`
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            No progress data available yet. Start learning to see your progress!
+                        </div>
+                    </div>
+                `);
+            return;
+        }
+
+        const categoryIcons = {
+            'reading': 'fas fa-book-open text-primary',
+            'listening': 'fas fa-headphones text-success',
+            'writing': 'fas fa-pen text-info',
+            'speaking': 'fas fa-microphone text-warning',
+            'extra_resources': 'fas fa-plus-circle text-secondary'
+        };
+
+        const categoryNames = {
+            'reading': 'Reading',
+            'listening': 'Listening',
+            'writing': 'Writing',
+            'speaking': 'Speaking',
+            'extra_resources': 'Extra Resources'
+        };
+
+        let totalCompleted = 0;
+        let totalResources = 0;
+
+        progressSummary.forEach(category => {
+            const completionRate = category.total_resources > 0
+                ? Math.round((category.completed_resources / category.total_resources) * 100)
+                : 0;
+
+            totalCompleted += category.completed_resources;
+            totalResources += category.total_resources;
+
+            const card = `
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="flex-shrink-0">
+                                        <i class="${categoryIcons[category.category]} fa-2x"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="fw-semibold mb-1">${categoryNames[category.category]}</h6>
+                                        <p class="text-muted small mb-0">${category.completed_resources}/${category.total_resources} completed</p>
+                                    </div>
+                                </div>
+                                <div class="progress mb-2" style="height: 8px;">
+                                    <div class="progress-bar" style="width: ${completionRate}%"></div>
+                                </div>
+                                <div class="d-flex justify-content-between text-sm">
+                                    <span class="fw-semibold">${completionRate}%</span>
+                                    <span class="text-muted">${Math.round(category.total_time_spent || 0)} min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            container.append(card);
+        });
+
+        // Update overall progress
+        const overallProgress = totalResources > 0 ? Math.round((totalCompleted / totalResources) * 100) : 0;
+        $('#overall-progress').html(Utils.createProgressRing(overallProgress, 80));
+    }
+
+    function displayResources() {
+        const container = $('#resources-container');
+        container.empty();
+
+        let resourcesToShow = [];
+
+        if (currentFilter) {
+            resourcesToShow = allResources[currentFilter] || [];
+        } else {
+            // Show all resources
+            Object.values(allResources).forEach(categoryResources => {
+                resourcesToShow = resourcesToShow.concat(categoryResources);
+            });
+        }
+
+        if (resourcesToShow.length === 0) {
+            showNoResources();
+            return;
+        }
+
+        $('#no-resources').hide();
+
+        const resourceIcons = {
+            'pdf': 'fas fa-file-pdf text-danger',
+            'video': 'fas fa-video text-primary',
+            'audio': 'fas fa-volume-up text-success',
+            'document': 'fas fa-file-word text-info',
+            'interactive': 'fas fa-puzzle-piece text-warning'
+        };
+
+        resourcesToShow.forEach(resource => {
+            const completionBadge = resource.is_completed
+                ? '<span class="badge bg-success">Completed</span>'
+                : '<span class="badge bg-secondary">In Progress</span>';
+
+            const progressBar = resource.completion_percentage > 0
+                ? `<div class="progress mt-2" style="height: 4px;">
+                         <div class="progress-bar" style="width: ${resource.completion_percentage}%"></div>
+                       </div>`
+                : '';
+
+            const card = `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 resource-card" data-resource-id="${resource.resource_id}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="resource-type-icon bg-light me-3">
+                                        <i class="${resourceIcons[resource.resource_type] || 'fas fa-file'}"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="fw-semibold mb-1">${resource.resource_name}</h6>
+                                        <span class="badge bg-primary">${resource.category.replace('_', ' ')}</span>
+                                    </div>
+                                </div>
+
+                                <p class="text-muted small mb-3">${resource.description || 'No description available'}</p>
+
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock me-1"></i>
+                                        ${resource.duration || 'Duration N/A'}
+                                    </small>
+                                    ${completionBadge}
+                                </div>
+
+                                ${progressBar}
+
+                                <div class="mt-3">
+                                    <button class="btn btn-primary w-100 view-resource-btn"
+                                            data-resource-id="${resource.resource_id}"
+                                            data-resource-name="${resource.resource_name}">
+                                        <i class="fas fa-eye me-2"></i>View Resource
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            container.append(card);
+        });
+
+        // Handle resource card clicks
+        $('.view-resource-btn').on('click', function() {
+            const resourceId = $(this).data('resource-id');
+            const resourceName = $(this).data('resource-name');
+            openResourceModal(resourceId, resourceName);
+        });
+    }
+
+    function showNoResources() {
+        $('#resources-container').empty();
+        $('#no-resources').show();
+    }
+
+    async function openResourceModal(resourceId, resourceName) {
+        $('#resourceModalTitle').text(resourceName);
+        $('#resource-viewer').html(`
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-3">Loading resource...</p>
+            `);
+
+        const modal = new bootstrap.Modal(document.getElementById('resourceModal'));
+        modal.show();
+
+        try {
+            const response = await API.get(`/student/resource/view/${resourceId}`);
+
+            if (response.success && response.data) {
+                const { view_url, download_url } = response.data;
+
+                // Update download button
+                $('#download-btn').attr('href', download_url);
+
+                // Display resource viewer
+                $('#resource-viewer').html(`
+                        <iframe src="${view_url}"
+                                width="100%"
+                                height="500"
+                                frameborder="0"
+                                allowfullscreen>
+                        </iframe>
+                    `);
+
+                // Update progress (simulated)
+                updateResourceProgress(resourceId, 10); // 10 minutes viewing time
+            } else {
+                throw new Error('Failed to load resource');
+            }
+        } catch (error) {
+            console.error('Error loading resource:', error);
+            $('#resource-viewer').html(`
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Failed to load resource. Please try again later.
+                    </div>
+                `);
+        }
+    }
+
+    async function updateResourceProgress(resourceId, timeSpent) {
+        try {
+            await API.post('/student/resource/progress', {
+                resource_id: resourceId,
+                time_spent: timeSpent,
+                completion_percentage: 50 // Simulate progress
+            });
+        } catch (error) {
+            console.error('Error updating progress:', error);
+        }
+    }
+</script>
+</body>
+</html>
